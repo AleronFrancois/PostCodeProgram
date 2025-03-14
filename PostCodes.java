@@ -909,29 +909,44 @@ public class PostCodes implements PostCodesInterface {
 
 
     public void printTable() {
-        int postCodeRange; // Range between first and last postcode
-        int i;             // Increment through postcode range
-        int j;
-    
-        // Console logs for debugging
-        System.out.println("First postcode is: " + firstCode);
-        System.out.println("Last postcode is: " + lastCode);
-    
-        // Calculate the range size correctly by including the last postcode
-        postCodeRange = lastCode - firstCode + 1; // Add 1 to include lastCode
-    
-        System.out.println("Postcode range is: " + postCodeRange);
-    
-        // Iterate through the postcode range
-        for (i = firstCode; i <= lastCode; i++) {
-            // Check if the postcode exists in POSTCODES
-            for (j = 0; j < POSTCODES.length; j++) {
-                int postcode = Integer.parseInt(POSTCODES[j][0]); // Convert postcode string into int
+        boolean beenPrinted; // Flag to track if the postcode has already been printed
+        int postcode;        // Unique postcode number
+        int i;               // Iterate through the user's specified postcode range
+        int j;               // Iterate through each postcode array row (793 rows)
+        
+        if (allSuburbs == false) {
+            /* 
+            * DISPLAY FIRST SUBURB FOR EACH POSTCODE:
+            * Loops through the user's specified range, then loops through the entire postcode array row length and
+            * only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
+            */
 
-                if (postcode == i) {
-                    System.out.println(POSTCODES[j][0]); // Print the postcode
+            // Iterate through the user's specified postcode range
+            for (i = firstCode; i <= lastCode; i++) { // Start to end of the user's specified range
+                beenPrinted = false; // Reset the flag for each new postcode
+        
+                for (j = 0; j < POSTCODES.length; j++) { // 0 to 793
+                    postcode = Integer.parseInt(POSTCODES[j][0]); // Convert postcode string into an int
+                    
+                    // Display the postcode only if it has not already
+                    if (postcode == i && beenPrinted == false) {
+                        System.out.print(POSTCODES[j][0] + "    "); // Print the postcode
+                        System.out.println(POSTCODES[j][1]); // Print the first suburb
+
+                        beenPrinted = true; // Flag to indicate the postcode has been dispalyed
+                    }
                 }
             }
         }
+        else {
+            /* 
+            * DISPLAY ALL SUBURB FOR EACH POSTCODE:
+            * Loops through the user's specified range, then loops through the entire postcode array row length and
+            * only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
+            */
+
+            // TODO...
+        }
+        
     }
 }
