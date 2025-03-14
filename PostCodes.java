@@ -909,8 +909,29 @@ public class PostCodes implements PostCodesInterface {
 
 
     public void printTable() {
-        // For debugging
-        System.out.println(firstCode);
-        System.out.println(lastCode);
+        int postCodeRange; // Range between first and last postcode
+        int i;             // Increment through postcode range
+        int j;
+    
+        // Console logs for debugging
+        System.out.println("First postcode is: " + firstCode);
+        System.out.println("Last postcode is: " + lastCode);
+    
+        // Calculate the range size correctly by including the last postcode
+        postCodeRange = lastCode - firstCode + 1; // Add 1 to include lastCode
+    
+        System.out.println("Postcode range is: " + postCodeRange);
+    
+        // Iterate through the postcode range
+        for (i = firstCode; i <= lastCode; i++) {
+            // Check if the postcode exists in POSTCODES
+            for (j = 0; j < POSTCODES.length; j++) {
+                int postcode = Integer.parseInt(POSTCODES[j][0]); // Convert postcode string into int
+
+                if (postcode == i) {
+                    System.out.println(POSTCODES[j][0]); // Print the postcode
+                }
+            }
+        }
     }
 }
