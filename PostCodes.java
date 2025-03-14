@@ -1,21 +1,27 @@
-/**
- * KIT107 Assignment 1
- *
- * PostCode Finder -- Library Class
- *
- * @author <<Names and Student IDs>>
- * @version <<Date>>
- * 
- */
+/** ---------------------------------------------
+  *              KIT107 Assignment 1                                    
+  *
+  * PostCode Finder -- Library Class
+  * File -- PostCodePorgram/PostCodes.java 
+  *
+  * @author - Aleron Francois (691807)
+  *         - Steel Cooper ()
+  * ---------------------------------------------
+  * @version 14/3/2025 - x/3/2025
+  * ---------------------------------------------
+  * Allow users to get a list of postcodes within
+  * Tasmania and the suburbs/towns they contain. 
+  * ---------------------------------------------
+**/
 
 
 import java.util.Scanner;
 
 
-public class PostCodes implements PostCodesInterface
-{
-    // final variables
-    protected final String POSTCODES[][]={{"7000","Glebe"},
+public class PostCodes implements PostCodesInterface {
+    // Final variables
+    protected final String POSTCODES[][]={
+        {"7000","Glebe"},
         {"7000","Hobart"},
         {"7000","Mount Stuart"},
         {"7000","North Hobart"},
@@ -816,5 +822,55 @@ public class PostCodes implements PostCodesInterface
     
     
     // methods
+    public void configure() {
+        Scanner cin = new Scanner(System.in); // Scanner for console input
+        String choice; // User's menu choice
+        String firstCode; // User's first postcode for start-range
+        String lastCode; // User's second postcode for end-range
+        Boolean exitPrompt = false;
 
+        while (exitPrompt == false) {
+            // Display program banner
+            System.out.println("\n       ----------Tasmanian PostCodes----------\n");
+
+            // Prompt user to print every suburb or first suburb in postcode range
+            System.out.print("Print every suburb for each selected postcode [Y/N] > ");
+            choice = cin.nextLine(); // Get console input
+
+            // Handle user's menu choice
+            // Print all suburbs in postcode range
+            if (choice.toLowerCase().equals("y") || choice.toLowerCase().equals("yes")) {
+                System.out.print("Enter the number of the first postcode to print > ");
+                firstCode = cin.nextLine(); // Get console input
+                System.out.print("Enter the number of the last postcode to print > ");
+                lastCode = cin.nextLine(); // Get console input
+
+                exitPrompt = true; // Exit loop
+            }
+            // Print first suburb in postcode range
+            else if (choice.toLowerCase().equals("n") || choice.toLowerCase().equals("no")) {
+                System.out.print("Enter the number of the first postcode to print > ");
+                firstCode = cin.nextLine(); // Get console input
+                System.out.print("Enter the number of the last postcode to print > ");
+                lastCode = cin.nextLine(); // Get console input
+
+                exitPrompt = true; // Exit loop
+            }
+            else {
+                // Handle invalid user input and assume N is selected
+                System.out.println("...N assumed...");
+                System.out.print("Enter the number of the first postcode to print > ");
+                firstCode = cin.nextLine(); // Get console input
+                System.out.print("Enter the number of the last postcode to print > ");
+                lastCode = cin.nextLine(); // Get console input
+
+                exitPrompt = true; // Exit loop
+            }
+        }
+    }
+
+
+    public void printTable() {
+
+    }
 }
