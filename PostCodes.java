@@ -909,6 +909,11 @@ public class PostCodes implements PostCodesInterface {
 
 
     public void printTable() {
+        // #region PrintTable
+        // Either prints the first suburb for each postcode or prints
+        // all suburbs for each postcode within the user's specified range.
+        // ----------------------------------------------------------------
+
         boolean beenPrinted; // Flag to track if the postcode has already been printed
         int postcode;        // Unique postcode number
         int i;               // Iterate through the user's specified postcode range
