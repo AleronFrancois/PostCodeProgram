@@ -914,6 +914,8 @@ public class PostCodes implements PostCodesInterface {
         int i;               // Iterate through the user's specified postcode range
         int j;               // Iterate through each postcode array row (793 rows)
         
+        System.out.println(); // Print space between user prompt and postcode and suburb display
+
         if (allSuburbs == false) {
             /* 
             * DISPLAY FIRST SUBURB FOR EACH POSTCODE:
