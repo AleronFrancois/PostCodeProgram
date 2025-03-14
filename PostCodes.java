@@ -15,6 +15,7 @@
 **/
 
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -818,59 +819,73 @@ public class PostCodes implements PostCodesInterface {
     // other final variables
     
     
-    // instance variables
+    // Instance variables
+    private int firstCode; // User's first postcode for start-range
+    private int lastCode; // User's second postcode for end-range
+    Boolean allSuburbs; // Flag used printing all suburbs or just the first
     
-    
-    // methods
     public void configure() {
+        // Prompts the user to enter postcode range and displays suburb/suburbs for each postcode.
+        // #region Configure
+        // ---------------------------------------------------------------------------------------
         Scanner cin = new Scanner(System.in); // Scanner for console input
-        String choice; // User's menu choice
-        String firstCode; // User's first postcode for start-range
-        String lastCode; // User's second postcode for end-range
-        Boolean exitPrompt = false;
+        Boolean exitPrompt = false;           // Flag used for exiting user prompt
+        Boolean validFirstCode = false;       // Flag used for checking valid user input (first postcode)
+        Boolean validLastCode = false;        // Flag used for checking valid user input (last postcode)
+        String choice;                        // User's menu choice
 
         while (exitPrompt == false) {
-            // Display program banner
-            System.out.println("\n       ----------Tasmanian PostCodes----------\n");
-
             // Prompt user to print every suburb or first suburb in postcode range
+            System.out.println("\n       ----------Tasmanian PostCodes----------\n");
             System.out.print("Print every suburb for each selected postcode [Y/N] > ");
-            choice = cin.nextLine(); // Get console input
+            choice = cin.nextLine(); // Get console input int
 
             // Handle user's menu choice
-            // Print all suburbs in postcode range
             if (choice.toLowerCase().equals("y") || choice.toLowerCase().equals("yes")) {
-                System.out.print("Enter the number of the first postcode to print > ");
-                firstCode = cin.nextLine(); // Get console input
-                System.out.print("Enter the number of the last postcode to print > ");
-                lastCode = cin.nextLine(); // Get console input
-
-                exitPrompt = true; // Exit loop
+                allSuburbs = true; 
             }
-            // Print first suburb in postcode range
             else if (choice.toLowerCase().equals("n") || choice.toLowerCase().equals("no")) {
-                System.out.print("Enter the number of the first postcode to print > ");
-                firstCode = cin.nextLine(); // Get console input
-                System.out.print("Enter the number of the last postcode to print > ");
-                lastCode = cin.nextLine(); // Get console input
-
-                exitPrompt = true; // Exit loop
+                allSuburbs = false;
             }
             else {
-                // Handle invalid user input and assume N is selected
                 System.out.println("...N assumed...");
-                System.out.print("Enter the number of the first postcode to print > ");
-                firstCode = cin.nextLine(); // Get console input
-                System.out.print("Enter the number of the last postcode to print > ");
-                lastCode = cin.nextLine(); // Get console input
-
-                exitPrompt = true; // Exit loop
+                allSuburbs = false;
             }
-        }
+
+            // Prompt user to enter start of postcode range
+            while (validFirstCode == false) {
+                System.out.print("Enter the number of the first postcode to print > ");
+                try { // Handle invalid input
+                    firstCode = cin.nextInt(); // Get console input int
+                    validFirstCode = true;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("[Error] Invalid input, please try again");
+                    cin.next(); // Clear invalid console input
+                }
+            }
+            
+            // Prompt user to enter end of postcode range
+            while (validLastCode == false) {
+                System.out.print("Enter the number of the last postcode to print > ");
+                try { // Handle invalid input
+                    lastCode = cin.nextInt(); // Get console input int
+                    validLastCode = true;
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("[Error] Invalid input, please try again");
+                    cin.next(); // Clear invalid console input
+                }
+            }
+            cin.close(); // End console input scanner
+            exitPrompt = true;
+        }           
     }
 
 
     public void printTable() {
-
+        // For debugging
+        System.out.println(firstCode);
+        System.out.println(lastCode);
     }
 }
