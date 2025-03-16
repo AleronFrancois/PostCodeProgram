@@ -823,8 +823,9 @@ public class PostCodes implements PostCodesInterface {
     // Start and end of postcode range (to avoid magic numbers)
     public final int FIRST_POSTCODE = 7000;
     public final int LAST_POSTCODE = 7470;
-    public final String ANSI_RED = "\u001B[31m";
-    public final String ANSI_RESET = "\u001B[0m";
+
+    public final String ANSI_RED = "\u001B[31m";  // Used to highlight error logs in red
+    public final String ANSI_RESET = "\u001B[0m"; // Used to reset console output color
 
     // ----GLOBAL----
     private int firstCode; // User's first postcode for start-range
@@ -859,8 +860,7 @@ public class PostCodes implements PostCodesInterface {
             allSuburbs = false; // Print first suburb for each postcode
         }
 
-        // Prompt user to enter start of postcode range
-        do {
+        do { // Prompt user to enter start of postcode range
             System.out.print("Enter the number of the first postcode to print > ");
 
             // Handle user input
@@ -884,8 +884,7 @@ public class PostCodes implements PostCodesInterface {
             }
         } while (!isValidFirstCode);
         
-        // Prompt user to enter end of postcode range
-        do {
+        do { // Prompt user to enter end of postcode range
             System.out.print("Enter the number of the last postcode to print > ");
 
             // Handle user input
