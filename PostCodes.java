@@ -880,7 +880,7 @@ public class PostCodes implements PostCodesInterface {
             }
             catch (InputMismatchException e) {
                 System.out.println("..." + ANSI_RED + "[Error] " + ANSI_RESET + "Invalid input, please try again");
-                cin.next(); // Clear invalid console input
+                cin.nextLine(); // Clear invalid console input
             }
         } while (!isValidFirstCode);
         
@@ -905,7 +905,7 @@ public class PostCodes implements PostCodesInterface {
             }
             catch (InputMismatchException e) {
                 System.out.println("..." + ANSI_RED + "[Error] " + ANSI_RESET + "Invalid input, please try again");
-                cin.next(); // Clear invalid console input
+                cin.nextLine(); // Clear invalid console input
             }
         } while (!isValidLastCode);
 
