@@ -825,7 +825,8 @@ public class PostCodes implements PostCodesInterface {
     public final int LAST_POSTCODE = 7470;  // End of postcode range
     public final int POSTCODE = 0;          // Used to print the postcode number
     public final int SUBURB = 1;            // Used to print the suburb name
-
+    
+    // ANSI Colors
     public final String ANSI_RED = "\u001B[31m";  // Used to highlight error logs in red
     public final String ANSI_RESET = "\u001B[0m"; // Used to reset console output color
 
