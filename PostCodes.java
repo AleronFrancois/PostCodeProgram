@@ -820,9 +820,11 @@ public class PostCodes implements PostCodesInterface {
 
         
     // ----CONSTANTS----
-    // Start and end of postcode range (to avoid magic numbers)
-    public final int FIRST_POSTCODE = 7000;
-    public final int LAST_POSTCODE = 7470;
+    // Magic numbers
+    public final int FIRST_POSTCODE = 7000; // Start of postcode range
+    public final int LAST_POSTCODE = 7470;  // End of postcode range
+    public final int POSTCODE = 0;          // Used to print the postcode number
+    public final int SUBURB = 1;            // Used to print the suburb name
 
     public final String ANSI_RED = "\u001B[31m";  // Used to highlight error logs in red
     public final String ANSI_RESET = "\u001B[0m"; // Used to reset console output color
@@ -936,13 +938,13 @@ public class PostCodes implements PostCodesInterface {
             for (i = firstCode; i <= lastCode; i++) { // Start to end of the user's specified range
                 beenPrinted = false; // Reset the flag for each new postcode
         
-                for (j = 0; j < POSTCODES.length; j++) { // 0 to 793
-                    postcode = Integer.parseInt(POSTCODES[j][0]); // Convert postcode string into an int
+                for (j = 0; j < POSTCODES.length; j++) { // Row 0 to 793
+                    postcode = Integer.parseInt(POSTCODES[j][POSTCODE]); // Convert postcode string into an int
                     
                     // Display the postcode only if it has not already
                     if (postcode == i && beenPrinted == false) {
-                        System.out.print(POSTCODES[j][0] + "    "); // Print the postcode
-                        System.out.println(POSTCODES[j][1]); // Print the first suburb
+                        System.out.print(POSTCODES[j][POSTCODE] + "    "); // Print the postcode
+                        System.out.println(POSTCODES[j][SUBURB]); // Print the first suburb
 
                         beenPrinted = true; // Flag to indicate the postcode has been dispalyed
                     }
