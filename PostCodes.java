@@ -944,7 +944,7 @@ public class PostCodes implements PostCodesInterface {
                     
                     // Display the postcode only if it has not already
                     if (postcode == i && beenPrinted == false) {
-                        System.out.print(POSTCODES[j][POSTCODE] + "    "); // Print the postcode
+                        System.out.print(POSTCODES[j][POSTCODE] + "\t"); // Print the postcode
                         System.out.println(POSTCODES[j][SUBURB]); // Print the first suburb
 
                         beenPrinted = true; // Flag to indicate the postcode has been dispalyed
