@@ -1,14 +1,15 @@
 /** -------------------------------------------------
   *              KIT107 Assignment 1                                    
-  *
+  * 
   * PostCode Finder -- Library Class
-  *
+  * File Location -- PostCodePorgram/PostCodes.java 
+  * 
   * @author - Aleron Francois (691807)
   *         - Steel Cooper ()
   *         - Julian Dermoudy
   * -------------------------------------------------
-  * @version 14/3/2025 - x/3/2025
-  * PostCodePorgram/PostCodes.java 
+  * @version 2.0
+  * @since 14/3/2025
   * -------------------------------------------------
   * Allows the user to get a list of postcodes within
   * Tasmania and the suburbs/towns they contain. 
@@ -835,12 +836,11 @@ public class PostCodes implements PostCodesInterface {
     private int lastCode;  // User's second postcode for end-range
     Boolean allSuburbs;    // Flag used printing all suburbs or just the first
 
-    
-    public void configure() {
-        // Prompts the user to enter postcode range and displays suburb/suburbs for each postcode.
-        // #region Configure
-        // ---------------------------------------------------------------------------------------
 
+    /** ---------------------------------------------------------------------------------------
+        Prompts the user to enter postcode range and displays suburb/suburbs for each postcode.
+        #region Configure */
+    public void configure() {
         Scanner cin = new Scanner(System.in); // Scanner for console input
         Boolean isValidFirstCode = false;     // Flag used for checking valid user input (first postcode)
         Boolean isValidLastCode = false;      // Flag used for checking valid user input (last postcode)
@@ -914,25 +914,22 @@ public class PostCodes implements PostCodesInterface {
         cin.close(); // End console input scanner     
     }
 
-
+    /** ----------------------------------------------------------------
+        Either prints the first suburb for each postcode or prints all 
+        suburbs for each postcode within the user's specified range.
+        #region PrintTable */
     public void printTable() {
-        // #region PrintTable
-        // Either prints the first suburb for each postcode or prints
-        // all suburbs for each postcode within the user's specified range.
-        // ----------------------------------------------------------------
-
         boolean beenPrinted; // Flag to track if the postcode has already been printed
-        int postcode;        // Unique postcode number
+        int postcode;        // Each postcode in array (793 rows/postcodes)
         int i;               // Iterate through the user's specified postcode range
-        int j;               // Iterate through each postcode array row (793 rows)
+        int j;               // Iterate through each postcode array row (793 rows/postcodes)
         
         System.out.println(); // Print space between user prompt and postcode table
 
         if (allSuburbs == false) {
-            /* 
-            * DISPLAY FIRST SUBURB FOR EACH POSTCODE:
-            * Loops through the user's specified range, then loops through the entire postcode array row length and
-            * only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
+            /*  DISPLAY FIRST SUBURB FOR EACH POSTCODE:
+                Loops through the user's specified range, then loops through the entire postcode array row length and
+                only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
             */
 
             // Iterate through the user's specified postcode range
@@ -953,10 +950,9 @@ public class PostCodes implements PostCodesInterface {
             }
         }
         else {
-            /* 
-            * DISPLAY ALL SUBURB FOR EACH POSTCODE:
-            * Loops through the user's specified range, then loops through the entire postcode array row length and
-            * only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
+            /*  DISPLAY ALL SUBURB FOR EACH POSTCODE:
+                Loops through the user's specified range, then loops through the entire postcode array row length and
+                only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
             */
 
             // TODO...
