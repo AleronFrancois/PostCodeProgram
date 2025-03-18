@@ -1,5 +1,5 @@
 /** -------------------------------------------------
-  *              KIT107 Assignment 1                                    
+                KIT107 Assignment 1                                    
   * 
   * PostCode Finder -- Library Class
   * File Location -- PostCodePorgram/PostCodes.java 
@@ -837,122 +837,157 @@ public class PostCodes implements PostCodesInterface {
     Boolean allSuburbs;    // Flag used printing all suburbs or just the first
 
 
-    /** ---------------------------------------------------------------------------------------
-        Prompts the user to enter postcode range and displays suburb/suburbs for each postcode.
-        #region Configure */
+    /*  
+        --------------------------------------------------------------------------
+        Prompts the user to enter a postcode range and displays the suburb/suburbs
+        for each postcode in the specified range.
+        #region Configure 
+    */
     public void configure() {
-        Scanner cin = new Scanner(System.in); // Scanner for console input
+        Scanner cin = new Scanner(System.in); // Scanner for reading console input
         Boolean isValidFirstCode = false;     // Flag used for checking valid user input (first postcode)
         Boolean isValidLastCode = false;      // Flag used for checking valid user input (last postcode)
         String choice;                        // User's menu choice
 
-        // Prompt user to print every suburb or first suburb in postcode range
+        // Prompt user to print every suburb (Y) or only the first suburb for each postcode in the specified range (N)
         System.out.println("\n       ----------Tasmanian PostCodes----------\n");
         System.out.print("Print every suburb for each selected postcode [Y/N] > ");
         choice = cin.nextLine(); // Get console input
 
         // Handle user's menu choice
         if (choice.equalsIgnoreCase("y") || choice.equalsIgnoreCase("yes")) {
-            allSuburbs = true; // Print all suburbs for each postcode
+            allSuburbs = true; // Set flag to indicate all suburbs for each postcode should be printed
         }
         else if (choice.equalsIgnoreCase("n") || choice.equalsIgnoreCase("no")) {
-            allSuburbs = false; // Print first suburb for each postcode
+            allSuburbs = false; // Set flag to indicate only the first suburb for each postcode should be printed
         }
         else {
             System.out.println("..." + ANSI_RED + "N " + ANSI_RESET + "assumed...");
-            allSuburbs = false; // Print first suburb for each postcode
+            allSuburbs = false; // Set flag to indicate only the first suburb for each postcode should be printed by default
         }
 
-        do { // Prompt user to enter start of postcode range
+        /*
+            Keep prompting the user to enter the first postcode to print until valid start-range has 
+            been given. If the user's first postcode is out of valid postcode range (0 - 793), default 
+            to the closest postcode. Catch and handle invalid user input (non-integer).
+        */
+        do { 
+            // Prompt user to enter the first postcode (start of postcode range)
             System.out.print("Enter the number of the first postcode to print > ");
 
-            // Handle user input
             try { 
                 firstCode = cin.nextInt(); // Get console input
 
-                // Check if user input falls in valid postcode range
+                // Check if user's input falls in valid postcode range (793 unique postcodes)
                 if (firstCode < FIRST_POSTCODE) {
-                    firstCode = FIRST_POSTCODE; // Set first code to 7000 by default if input is less then valid range
+
+                    // Set first code to 7000 by default if user's input is less then valid range
+                    firstCode = FIRST_POSTCODE; 
                     System.out.println("..." + ANSI_RED + "7000 " + ANSI_RESET + "assumed...");
                 }
                 else if (firstCode > LAST_POSTCODE) {
-                    firstCode = LAST_POSTCODE; // Set first code to 7470 by default if input is greater then valid range
+
+                    // Set first code to 7470 by default if user's input is greater then valid range
+                    firstCode = LAST_POSTCODE; 
                     System.out.println("..." + ANSI_RED + "7470 " + ANSI_RESET + "assumed...");
                 }
+
                 isValidFirstCode = true; // Exit user prompt
             }
-            catch (InputMismatchException e) {
+            catch (InputMismatchException e) { // Catch invalid user input
                 System.out.println("..." + ANSI_RED + "[Error] " + ANSI_RESET + "Invalid input, please try again");
                 cin.nextLine(); // Clear invalid console input
             }
-        } while (!isValidFirstCode);
+        } while (!isValidFirstCode); // Keep prompting user until valid response has been given
         
-        do { // Prompt user to enter end of postcode range
+        /*
+            Keep prompting the user to enter the last postcode to print until valid end-range has 
+            been given. If the user's first postcode is out of valid postcode range (0 - 793), default 
+            to the closest postcode. Catch and handle invalid user input (non-integer).
+        */
+        do { 
+            // Prompt user to enter the last postcode (end of postcode range)
             System.out.print("Enter the number of the last postcode to print > ");
 
-            // Handle user input
             try { 
                 lastCode = cin.nextInt(); // Get console input
                 
-                // Check if user input falls in valid postcode range
+                // Check if user's input falls in valid postcode range (793 unique postcodes)
                 if (lastCode > LAST_POSTCODE) {
-                    lastCode = LAST_POSTCODE; // Set last code to 7470 by default if input is greater then valid range
+
+                    // Set last code to 7470 by default if user's input is greater then valid range
+                    lastCode = LAST_POSTCODE; 
                     System.out.println("..." + ANSI_RED + "7470 " + ANSI_RESET + "assumed...");
                 }
                 else if (lastCode < FIRST_POSTCODE) {
-                    lastCode = FIRST_POSTCODE; // Set first code to 7000 by default if input is less then valid range
+
+                    // Set first code to 7000 by default if user's input is less then valid range
+                    lastCode = FIRST_POSTCODE; 
                     System.out.println("..." + ANSI_RED + "7000 " + ANSI_RESET + "assumed...");
                 }
+                
                 isValidLastCode = true; // Exit user prompt
             }
-            catch (InputMismatchException e) {
+            catch (InputMismatchException e) { // Catch invalid user input
                 System.out.println("..." + ANSI_RED + "[Error] " + ANSI_RESET + "Invalid input, please try again");
                 cin.nextLine(); // Clear invalid console input
             }
-        } while (!isValidLastCode);
+        } while (!isValidLastCode); // Keep prompting user until valid response has been given
 
-        cin.close(); // End console input scanner     
+        cin.close(); // Close console input scanner
     }
 
-    /** ----------------------------------------------------------------
-        Either prints the first suburb for each postcode or prints all 
-        suburbs for each postcode within the user's specified range.
-        #region PrintTable */
+
+    /*  
+        --------------------------------------------------------------------------
+        Either prints the first suburb for each postcode or prints all suburbs for
+        each postcode within the user's specified range.
+        #region PrintTable 
+    */
     public void printTable() {
         boolean beenPrinted; // Flag to track if the postcode has already been printed
-        int postcode;        // Each postcode in array (793 rows/postcodes)
-        int i;               // Iterate through the user's specified postcode range
-        int j;               // Iterate through each postcode array row (793 rows/postcodes)
+        int postcode;        // Each unique postcode in array (793 unique postcodes)
+        int i;               // Used to iterate through the user's specified postcode range
+        int j;               // Used to iterate through each unique postcode in array (793 unqiue postcodes)
         
         System.out.println(); // Print space between user prompt and postcode table
 
         if (allSuburbs == false) {
-            /*  DISPLAY FIRST SUBURB FOR EACH POSTCODE:
-                Loops through the user's specified range, then loops through the entire postcode array row length and
-                only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
+            /*  
+                ----DISPLAY FIRST SUBURB FOR EACH POSTCODE----
+                Loops through the user's specified range as well as through the entire postcode array and only prints 
+                the postcode if it has not already been printed. This which works by comparing each postcode in the user's 
+                specified range to each postcode in the array which is indicated by the beenPrinted flag.
             */
 
             // Iterate through the user's specified postcode range
-            for (i = firstCode; i <= lastCode; i++) { // Start to end of the user's specified range
+            for (i = firstCode; i <= lastCode; i++) {
                 beenPrinted = false; // Reset the flag for each new postcode
-        
-                for (j = 0; j < POSTCODES.length; j++) { // Row 0 to 793
-                    postcode = Integer.parseInt(POSTCODES[j][POSTCODE]); // Convert postcode string into an int
-                    
-                    // Display the postcode only if it has not already
-                    if (postcode == i && beenPrinted == false) {
-                        System.out.print(POSTCODES[j][POSTCODE] + "\t"); // Print the postcode
-                        System.out.println(POSTCODES[j][SUBURB]); // Print the first suburb
+                
+                // Iterate through the entire postcode array (793 unique postcodes)
+                for (j = 0; j < POSTCODES.length; j++) { 
 
-                        beenPrinted = true; // Flag to indicate the postcode has been dispalyed
+                    // Convert postcode string into an int for correct comparison
+                    postcode = Integer.parseInt(POSTCODES[j][POSTCODE]); 
+                    
+                    // Compare each unique postcode to all postcodes to ensure each postcode is not printed multiple times
+                    if (postcode == i && beenPrinted == false) {
+
+                        // Print each postcode and the first suburb for that postcode
+                        System.out.print(POSTCODES[j][POSTCODE] + "\t"); // Postcode
+                        System.out.println(POSTCODES[j][SUBURB]);        // First suburb
+
+                        beenPrinted = true; // Flag to indicate the postcode has been printed
                     }
                 }
             }
         }
         else {
-            /*  DISPLAY ALL SUBURB FOR EACH POSTCODE:
-                Loops through the user's specified range, then loops through the entire postcode array row length and
-                only prints the postcode if it has not already been printed, which is indicated by the beenPrinted flag.
+            /*  
+                ----DISPLAY ALL SUBURBS FOR EACH POSTCODE----
+                Loops through the user's specified range as well as through the entire postcode array and only prints 
+                the postcode if it has not already been printed. This which works by comparing each postcode in the user's 
+                specified range to each postcode in the array which is indicated by the beenPrinted flag.
             */
 
             // TODO...
