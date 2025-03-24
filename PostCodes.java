@@ -5,7 +5,7 @@
   * File Location -- PostCodePorgram/PostCodes.java 
   * 
   * @author - Aleron Francois (691807)
-  *         - Steel Cooper ()
+  *         - Ethan Marsden (510598)
   *         - Julian Dermoudy
   * -------------------------------------------------
   * @version 2.0
@@ -990,7 +990,48 @@ public class PostCodes implements PostCodesInterface {
                 specified range to each postcode in the array which is indicated by the beenPrinted flag.
             */
 
-            // TODO...
+            int charMax = 80; //maximum number of characters per line
+            int charCount = 0; //number of characters printed
+
+            for (i = firstCode; i <= lastCode; i++) { // Start to end of the user's specified range
+                beenPrinted = false; // Reset the flag for each new postcode
+                
+                for (j = 0; j < POSTCODES.length; j++) { // 0 to 793
+                    postcode = Integer.parseInt(POSTCODES[j][0]); // Convert postcode string into an int
+
+                    // Display the postcode only if it has not already
+                    if (postcode == i && beenPrinted == false) {
+                        System.out.print(POSTCODES[j][0] + "    "); // Print the postcode
+                        beenPrinted = true; // Flag to indicate the postcode has been dispalyed
+                    }
+
+                    // displays all Suburbs associated with postcode
+                    // checks to see if 80 char have been printed yet
+                    if (postcode == i && charCount <= charMax){
+                        System.out.print(POSTCODES[j][1]); //prints suburb name
+                        charCount = charCount + POSTCODES[j][1].length(); // string length is added to charCount
+                        if (j < POSTCODES.length - 1 && POSTCODES[j][0].equals(POSTCODES[j + 1][0])) {
+                            System.out.print(", ");
+                            charCount = charCount + 2;
+                        } 
+                        else {
+                            System.out.println();
+                        }
+                    }
+                    else if (postcode == i && charCount >= charMax) {
+                        System.out.println(); 
+                        System.out.print("        "); // Indents suburbs
+                        charCount = 0;
+                        System.out.print(POSTCODES[j][1]); //prints suburb name
+                        charCount = charCount + POSTCODES[j][1].length();
+                        if (j < POSTCODES.length - 1 && POSTCODES[j][0].equals(POSTCODES[j + 1][0])) {
+                            System.out.print(", ");
+                            charCount = charCount + 2;
+                        } 
+                        else {
+                            System.out.println();
+                        }
+                    }
         }
         
     }
