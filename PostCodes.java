@@ -1003,6 +1003,7 @@ public class PostCodes implements PostCodesInterface {
                     if (postcode == i && beenPrinted == false) {
                         System.out.print(POSTCODES[j][0] + "    "); // Print the postcode
                         beenPrinted = true; // Flag to indicate the postcode has been dispalyed
+                        charCount = 0; // Reset charCount to 0 for each new suburb
                     }
 
                     // displays all Suburbs associated with postcode
