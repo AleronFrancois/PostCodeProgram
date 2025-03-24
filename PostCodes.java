@@ -997,21 +997,21 @@ public class PostCodes implements PostCodesInterface {
                 beenPrinted = false; // Reset the flag for each new postcode
                 
                 for (j = 0; j < POSTCODES.length; j++) { // 0 to 793
-                    postcode = Integer.parseInt(POSTCODES[j][0]); // Convert postcode string into an int
+                    postcode = Integer.parseInt(POSTCODES[j][POSTCODE]); // Convert postcode string into an int
 
                     // Display the postcode only if it has not already
                     if (postcode == i && beenPrinted == false) {
-                        System.out.print(POSTCODES[j][0] + "    "); // Print the postcode
+                        System.out.print(POSTCODES[j][POSTCODE] + "\t"); // Print the postcode
                         beenPrinted = true; // Flag to indicate the postcode has been dispalyed
-                        charCount = 0; // Reset charCount to 0 for each new suburb
+                        charCount = 0; // Reset charCount for each new postcode
                     }
 
                     // displays all Suburbs associated with postcode
                     // checks to see if 80 char have been printed yet
                     if (postcode == i && charCount <= charMax){
-                        System.out.print(POSTCODES[j][1]); //prints suburb name
+                        System.out.print(POSTCODES[j][SUBURB]); //prints suburb name
                         charCount = charCount + POSTCODES[j][1].length(); // string length is added to charCount
-                        if (j < POSTCODES.length - 1 && POSTCODES[j][0].equals(POSTCODES[j + 1][0])) {
+                        if (j < POSTCODES.length - 1 && POSTCODES[j][POSTCODE].equals(POSTCODES[j + 1][POSTCODE])) {
                             System.out.print(", ");
                             charCount = charCount + 2;
                         } 
@@ -1021,11 +1021,11 @@ public class PostCodes implements PostCodesInterface {
                     }
                     else if (postcode == i && charCount >= charMax) {
                         System.out.println(); 
-                        System.out.print("        "); // Indents suburbs
+                        System.out.print("\t"); // Indents suburbs
                         charCount = 0;
-                        System.out.print(POSTCODES[j][1]); //prints suburb name
-                        charCount = charCount + POSTCODES[j][1].length();
-                        if (j < POSTCODES.length - 1 && POSTCODES[j][0].equals(POSTCODES[j + 1][0])) {
+                        System.out.print(POSTCODES[j][SUBURB]); //prints suburb name
+                        charCount = charCount + POSTCODES[j][SUBURB].length();
+                        if (j < POSTCODES.length - 1 && POSTCODES[j][POSTCODE].equals(POSTCODES[j + 1][POSTCODE])) {
                             System.out.print(", ");
                             charCount = charCount + 2;
                         } 
