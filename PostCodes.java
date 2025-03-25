@@ -1033,7 +1033,8 @@ public class PostCodes implements PostCodesInterface {
                             System.out.println();
                         }
                     }
+                }
+            }
         }
-        
     }
 }
